@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        img {
+            margin-top: 20px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h2>Text to Image Converter</h2>
+    <input type="text" id="textInput" placeholder="Enter your text here">
+    <button onclick="convertTextToImage()">Generate Image</button>
+    <br>
+    <img id="outputImage" style="display: none;">
+
+    <script>
+        function convertTextToImage() {
+            let text = document.getElementById("textInput").value;
+            fetch('/generate_image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                let imgUrl = URL.createObjectURL(blob);
+                let imgElement = document.getElementById("outputImage");
+                imgElement.src = imgUrl;
+                imgElement.style.display = "block";
+            });
+        }
+    </script>
+</body>
+</html>
