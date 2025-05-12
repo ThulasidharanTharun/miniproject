@@ -1,0 +1,7 @@
+
+path: /path/to/your/dataset
+train: images/train
+val: images/val
+
+nc: 3  # Number of classes (change based on your use case)
+names: ['defect_1', 'defect_2', 'missing_part']
